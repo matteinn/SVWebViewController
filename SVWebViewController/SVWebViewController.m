@@ -150,8 +150,11 @@
 
 - (UIImageView*)loadingImageView {
     if(!_loadingImageView && self.customLoadingImage) {
-        _loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width-56)/2, (self.view.bounds.size.height-56)/2, 56, 56)];
+        _loadingImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _loadingImageView.bounds = CGRectMake(0, 0, 56, 56);
+        _loadingImageView.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
         _loadingImageView.image = self.customLoadingImage;
+        _loadingImageView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
     }
     return _loadingImageView;
 }
