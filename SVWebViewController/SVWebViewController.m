@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) NSURLRequest *request;
 
+@property (nonatomic, strong) UIImageView *loadingImageView;
+
 @end
 
 
@@ -55,10 +57,34 @@
     [self.webView loadRequest:request];
 }
 
+#pragma mark - Animation
+
+- (void)showLoader{
+    if(self.customLoadingImage){
+        self.loadingImageView.hidden = NO;
+        
+        CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        rotateAnimation.toValue = @(M_PI * 2);
+        rotateAnimation.duration = 0.8;
+        rotateAnimation.cumulative = YES;
+        rotateAnimation.repeatCount = HUGE;
+        [self.loadingImageView.layer addAnimation:rotateAnimation forKey:@"rotateAnimation"];
+    }
+}
+
+- (void)hideLoader{
+    self.loadingImageView.hidden = YES;
+    [self.loadingImageView.layer removeAllAnimations];
+}
+
 #pragma mark - View lifecycle
 
 - (void)loadView {
     self.view = self.webView;
+    if(self.loadingImageView){
+        [self.view addSubview:self.loadingImageView];
+        [self showLoader];
+    }
     [self loadRequest:self.request];
 }
 
@@ -75,6 +101,7 @@
     _refreshBarButtonItem = nil;
     _stopBarButtonItem = nil;
     _actionBarButtonItem = nil;
+    _loadingImageView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -119,6 +146,14 @@
         _webView.scalesPageToFit = YES;
     }
     return _webView;
+}
+
+- (UIImageView*)loadingImageView {
+    if(!_loadingImageView && self.customLoadingImage) {
+        _loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width-56)/2, (self.view.bounds.size.height-56)/2, 56, 56)];
+        _loadingImageView.image = self.customLoadingImage;
+    }
+    return _loadingImageView;
 }
 
 - (UIBarButtonItem *)backBarButtonItem {
@@ -240,6 +275,8 @@
     if ([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
         [self.delegate webViewDidFinishLoad:webView];
     }
+    
+    [self hideLoader];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

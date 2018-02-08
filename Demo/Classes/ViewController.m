@@ -21,8 +21,9 @@
 
 
 - (void)presentWebViewController {
-	NSURL *URL = [NSURL URLWithString:@"http://samvermette.com"];
+	NSURL *URL = [NSURL URLWithString:@"https://appstyx.com"];
 	SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithURL:URL];
+    webViewController.webViewController.customLoadingImage = [UIImage imageNamed:@"loader"];
 	webViewController.modalPresentationStyle = UIModalPresentationPageSheet;
     [self presentViewController:webViewController animated:YES completion:NULL];
 }
