@@ -91,6 +91,14 @@
     return self.webViewController.delegate;
 }
 
+- (void)setWKwebViewDelegate:(id<WKNavigationDelegate>)webViewDelegate {
+    self.webViewController.wkDelegate = webViewDelegate;
+}
+
+- (id<WKNavigationDelegate>)WKwebViewDelegate {
+    return self.webViewController.wkDelegate;
+}
+
 - (void)doneButtonTapped:(id)sender {
     [self.webViewController doneButtonTapped:sender];
     
