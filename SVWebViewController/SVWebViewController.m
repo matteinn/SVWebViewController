@@ -354,6 +354,10 @@
     self.navigationItem.title = webView.title;
     [self updateToolbarItems];
     
+    if ([self.wkDelegate respondsToSelector:@selector(webView:didFinishNavigation:)]) {
+        [self.wkDelegate webView:webView didFinishNavigation:navigation];
+    }
+    
     [self hideLoader];
 }
 
