@@ -353,6 +353,8 @@
     
     self.navigationItem.title = webView.title;
     [self updateToolbarItems];
+    
+    [self hideLoader];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
