@@ -6,6 +6,8 @@
 //
 //  https://github.com/samvermette/SVWebViewController
 
+#import <WebKit/WebKit.h>
+
 @interface SVWebViewController : UIViewController
 
 - (instancetype)initWithAddress:(NSString *)urlString;
@@ -14,6 +16,7 @@
 
 @property (nonatomic, weak) id<UIWebViewDelegate> delegate;
 @property (nonatomic, readonly) UIWebView *webView;
+@property (nonatomic, readonly) WKWebView *wkWebView;
 @property (nonatomic, strong) NSMutableArray<UIActivity *> *activities;
 @property (nonatomic, strong) UIImage *customLoadingImage;
 
