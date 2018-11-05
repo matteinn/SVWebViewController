@@ -175,7 +175,11 @@
     {
         if ([WKWebView class])
         {
-            _wkWebView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+            if(self.processPool){
+                config.processPool = self.processPool;
+            }
+            _wkWebView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds configuration:config];
             _wkWebView.navigationDelegate = self;
         }
     }

@@ -16,6 +16,7 @@
 
 @property (nonatomic, weak) id<UIWebViewDelegate> delegate;
 @property (nonatomic, weak) id<WKNavigationDelegate> wkDelegate;
+@property (nonatomic, strong) WKProcessPool *processPool;
 @property (nonatomic, readonly) UIWebView *webView;
 @property (nonatomic, readonly) WKWebView *wkWebView;
 @property (nonatomic, strong) NSMutableArray<UIActivity *> *activities;
