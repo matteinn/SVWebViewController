@@ -355,7 +355,9 @@
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
-    self.navigationItem.title = webView.title;
+    if(self.navigationItem.title == nil){
+        self.navigationItem.title = webView.title;
+    }
     [self updateToolbarItems];
     
     if ([self.wkDelegate respondsToSelector:@selector(webView:didFinishNavigation:)]) {
